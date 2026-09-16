@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Phone, MapPin, Mail, MessageCircle, Menu, X, Sparkles, Clock } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
+import logoTrans from '../assets/images/logo trans.jpg';
 
 interface HeaderProps {
   onNavigate: (sectionId: string) => void;
@@ -91,11 +92,11 @@ export default function Header({ onNavigate, onOpenBooking, activeSection }: Hea
             className="flex items-center gap-3 group text-left focus:outline-none"
             id="brand-logo-btn"
           >
-            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400/80 shadow-lg group-hover:scale-105 transition-transform duration-300 bg-white">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400/80 shadow-lg group-hover:scale-105 transition-transform duration-300 bg-black/40 flex items-center justify-center p-0.5">
               <img
-                src="./images/logo.jpg"
+                src={logoTrans}
                 alt="Janine's Clothing Hermanus"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 referrerPolicy="no-referrer"
               />
             </div>

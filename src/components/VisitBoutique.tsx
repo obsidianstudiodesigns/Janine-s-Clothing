@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send, CheckCircle2, Navigation, Calendar } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
+import logoTrans from '../assets/images/logo trans.jpg';
 
 interface VisitBoutiqueProps {
   onOpenBooking: () => void;
@@ -59,8 +60,8 @@ export default function VisitBoutique({ onOpenBooking }: VisitBoutiqueProps) {
                     Hermanus, South Africa
                   </p>
                 </div>
-                <div className="w-12 h-12 rounded-full overflow-hidden border border-amber-400/50 bg-white shrink-0">
-                  <img src="./images/logo.jpg" alt="Logo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <div className="w-12 h-12 rounded-full overflow-hidden border border-amber-400/50 bg-black/50 p-1 shrink-0 flex items-center justify-center">
+                  <img src={logoTrans} alt="Logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                 </div>
               </div>
 

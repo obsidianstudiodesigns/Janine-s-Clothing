@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail, Clock, Heart, Sparkles, MessageCircle, ArrowUp } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
+import logoTrans from '../assets/images/logo trans.jpg';
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
@@ -32,8 +33,8 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Brand & Mission */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400/80 bg-white shrink-0 shadow-lg">
-                <img src="./images/logo.jpg" alt="Logo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400/80 bg-black/50 p-1 shrink-0 shadow-lg flex items-center justify-center">
+                <img src={logoTrans} alt="Logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
               </div>
               <div>
                 <span className="block font-serif text-2xl font-bold text-white tracking-tight leading-none">

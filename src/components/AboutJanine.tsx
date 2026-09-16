@@ -1,5 +1,6 @@
 import { Heart, Sparkles, Check, Recycle, MapPin, Award } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
+import logoTrans from '../assets/images/logo trans.jpg';
 
 export default function AboutJanine() {
   const values = [
@@ -45,11 +46,11 @@ export default function AboutJanine() {
 
               {/* Floating Badge */}
               <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#141419]/90 backdrop-blur-md border border-amber-500/30 flex items-center gap-4 shadow-xl">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-amber-400 shrink-0 bg-white shadow-md">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-amber-400 shrink-0 bg-black/50 p-1 shadow-md flex items-center justify-center">
                   <img
-                    src="./images/logo.jpg"
+                    src={logoTrans}
                     alt="Janine's Logo"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"
                   />
                 </div>
