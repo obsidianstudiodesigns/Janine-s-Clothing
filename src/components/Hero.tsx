@@ -27,15 +27,7 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
       </div>
 
       {/* Hero Content Container */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-6 sm:mt-4">
-        {/* Prestigious Location & Quality Tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-amber-400/60 text-stone-800 text-xs sm:text-sm font-medium tracking-wide shadow-md backdrop-blur-md mb-4 animate-in fade-in slide-in-from-bottom-3 duration-700">
-          <MapPin className="w-3.5 h-3.5 text-[#7c0f1e]" />
-          <span className="font-semibold text-stone-900">21 Mimosa Street, Hermanus, South Africa</span>
-          <span className="text-amber-500">•</span>
-          <span className="text-stone-600">Curated Ladies Fashion</span>
-        </div>
-
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-4 sm:mt-2">
         {/* Brand Main Title & Typography */}
         <div className="mb-2">
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-stone-950 leading-tight drop-shadow-sm">

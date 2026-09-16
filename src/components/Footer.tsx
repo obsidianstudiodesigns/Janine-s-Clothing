@@ -159,13 +159,11 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
         </div>
 
-        {/* Bottom Credits & GitHub CI/CD Notice */}
+        {/* Bottom Credits */}
         <div className="mt-14 pt-8 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Janine's Clothing Hermanus. All rights reserved.</p>
-          <div className="flex items-center gap-4">
+          <div>
             <span>Website Designed by <strong className="text-stone-800">Obsidian Studio Designs</strong></span>
-            <span>•</span>
-            <span className="text-[#7c0f1e] font-medium">GitHub Pages Automated Build Enabled</span>
           </div>
         </div>
       </div>
