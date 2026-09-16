@@ -54,7 +54,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0d] text-[#eee7dc] flex flex-col selection:bg-[#850e1f] selection:text-white">
+    <div className="min-h-screen bg-[#faf8f5] text-[#1c1917] flex flex-col selection:bg-[#850e1f] selection:text-white">
       {/* Top Fixed Header */}
       <Header
         onNavigate={handleNavigate}

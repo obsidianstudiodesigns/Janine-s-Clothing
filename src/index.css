@@ -3,8 +3,8 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    color: #ede8e1;
-    background-color: #0b0b0e;
+    color: #1c1917;
+    background-color: #faf8f5;
     overflow-x: hidden;
   }
 
@@ -18,18 +18,18 @@
   }
 }
 
-/* Custom luxury glass & gold border highlights */
+/* Custom luxury light theme & gold border highlights */
 .luxury-gold-border {
-  border: 1px solid rgba(212, 175, 55, 0.28);
+  border: 1px solid rgba(180, 138, 60, 0.3);
 }
 
 .luxury-gold-border-hover:hover {
-  border-color: rgba(212, 175, 55, 0.7);
-  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+  border-color: rgba(180, 138, 60, 0.7);
+  box-shadow: 0 10px 30px -10px rgba(180, 138, 60, 0.18);
 }
 
 .luxury-crimson-gradient {
-  background: linear-gradient(135deg, #780d1e 0%, #4a0610 100%);
+  background: linear-gradient(135deg, #850e1f 0%, #590a16 100%);
 }
 
 .luxury-gold-gradient {
@@ -37,7 +37,7 @@
 }
 
 .gold-text-accent {
-  color: #e5c158;
+  color: #996e1b;
 }
 
 /* Custom subtle gold shimmer */

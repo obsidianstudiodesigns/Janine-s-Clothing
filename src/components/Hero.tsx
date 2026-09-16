@@ -11,7 +11,7 @@ interface HeroProps {
 export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
-      {/* Background Wallpaper: landing page.jpg with enhanced visibility */}
+      {/* Background Wallpaper: landing page.jpg prominently visible */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           src={landingPageImg}
@@ -20,39 +20,39 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
           referrerPolicy="no-referrer"
         />
 
-        {/* Delicate overlays that preserve the brightness and clarity of the wallpaper while ensuring UI readability */}
-        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#0a0a0d]/90 via-[#0a0a0d]/40 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#0a0a0d] via-[#0a0a0d]/60 to-transparent pointer-events-none" />
+        {/* Subtle, refined scrims that preserve full visibility of the boutique showroom while maintaining text clarity */}
+        <div className="absolute inset-0 bg-white/15 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-[#faf8f5]/80 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#faf8f5] to-transparent pointer-events-none" />
       </div>
 
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-6 sm:mt-4">
         {/* Prestigious Location & Quality Tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-medium tracking-wide shadow-2xl backdrop-blur-md mb-4 animate-in fade-in slide-in-from-bottom-3 duration-700">
-          <MapPin className="w-3.5 h-3.5 text-amber-400" />
-          <span className="drop-shadow">21 Mimosa Street, Hermanus, South Africa</span>
-          <span className="text-amber-400/50">•</span>
-          <span className="text-white drop-shadow">Curated Ladies Fashion</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-amber-400/60 text-stone-800 text-xs sm:text-sm font-medium tracking-wide shadow-md backdrop-blur-md mb-4 animate-in fade-in slide-in-from-bottom-3 duration-700">
+          <MapPin className="w-3.5 h-3.5 text-[#7c0f1e]" />
+          <span className="font-semibold text-stone-900">21 Mimosa Street, Hermanus, South Africa</span>
+          <span className="text-amber-500">•</span>
+          <span className="text-stone-600">Curated Ladies Fashion</span>
         </div>
 
         {/* Brand Main Title & Typography */}
         <div className="mb-2">
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-stone-950 leading-tight drop-shadow-sm">
             Janine's Clothing
           </h1>
-          <p className="text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase text-amber-300 font-semibold mt-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+          <p className="text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase text-[#7c0f1e] font-extrabold mt-1 drop-shadow-xs">
             Hermanus Luxury Boutique
           </p>
         </div>
 
-        {/* Central Logo: Replaced the tagline box with logo trans.jpg */}
-        <div className="my-4 flex flex-col items-center justify-center animate-in fade-in zoom-in duration-600">
-          <div className="relative group p-1">
+        {/* Central Logo: Framed in a pristine white luxury medallion so it stands out spectacularly */}
+        <div className="my-5 flex flex-col items-center justify-center animate-in fade-in zoom-in duration-600">
+          <div className="relative group p-4 sm:p-6 rounded-3xl bg-white/95 backdrop-blur-md border-2 border-amber-300/80 shadow-[0_20px_50px_rgba(124,15,30,0.12)] hover:shadow-[0_25px_60px_rgba(124,15,30,0.2)] hover:scale-[1.02] transition-all duration-300 max-w-sm sm:max-w-md">
             <img
               src={logoTrans}
               alt="Janine's Clothing Logo"
-              className="w-48 sm:w-64 md:w-80 max-w-[85vw] h-auto object-contain drop-shadow-[0_12px_32px_rgba(0,0,0,0.9)] hover:scale-105 transition-transform duration-300 rounded-2xl"
+              className="w-48 sm:w-64 md:w-72 max-w-[75vw] h-auto object-contain mx-auto"
               referrerPolicy="no-referrer"
             />
           </div>
@@ -63,7 +63,7 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
           {['Clothing', 'Shoes', 'Bags', 'And Much More'].map((cat, idx) => (
             <span
               key={idx}
-              className="px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-amber-400/30 text-xs sm:text-sm font-semibold tracking-wider text-stone-100 uppercase hover:border-amber-400 hover:text-amber-200 transition-colors shadow-lg drop-shadow-md"
+              className="px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-300 text-xs sm:text-sm font-semibold tracking-wider text-stone-800 uppercase hover:border-[#7c0f1e] hover:text-[#7c0f1e] transition-colors shadow-xs"
             >
               {cat}
             </span>
@@ -74,7 +74,7 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
           <button
             onClick={onExploreClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-amber-100 bg-[#720e1e]/90 hover:bg-[#881224] backdrop-blur-sm border border-amber-400/70 shadow-2xl hover:shadow-amber-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group"
+            className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-white bg-[#7c0f1e] hover:bg-[#921325] border border-amber-400/40 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group"
             id="hero-explore-collections-btn"
           >
             <span>View Latest Collections</span>
@@ -83,10 +83,10 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
 
           <button
             onClick={onVisitClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-stone-100 bg-black/60 hover:bg-black/80 border border-stone-600 hover:border-amber-400 backdrop-blur-md shadow-2xl transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-stone-900 bg-white hover:bg-stone-50 border border-stone-300 hover:border-amber-500 shadow-md transition-all duration-200 flex items-center justify-center gap-2"
             id="hero-visit-store-btn"
           >
-            <MapPin className="w-4 h-4 text-amber-400" />
+            <MapPin className="w-4 h-4 text-[#7c0f1e]" />
             <span>Visit 21 Mimosa Street</span>
           </button>
 
@@ -94,51 +94,51 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
             href={`https://wa.me/${STORE_DETAILS.whatsappNumber}?text=Hi%20Janine,%20I'm%20viewing%20your%20website%20and%20would%20like%20to%20know%20what's%20in%20store%20today.`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-6 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-emerald-200 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 backdrop-blur-md shadow-2xl transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
           >
-            <MessageCircle className="w-4 h-4 text-emerald-400" />
+            <MessageCircle className="w-4 h-4" />
             <span>WhatsApp Us</span>
           </a>
         </div>
 
         {/* Trust Badges / Value Pillars */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 pt-8 border-t border-white/20 text-left">
-          <div className="bg-black/60 backdrop-blur-md p-3.5 rounded-xl border border-stone-800 shadow-xl">
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
-              <Sparkles className="w-4 h-4" />
-              <span className="font-serif text-sm font-bold text-white">Pre-Loved Luxury</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 pt-8 border-t border-stone-300/60 text-left">
+          <div className="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-stone-200/90 shadow-md hover:shadow-lg transition-shadow">
+            <div className="flex items-center gap-2 text-[#7c0f1e] mb-1">
+              <Sparkles className="w-4 h-4 text-amber-600" />
+              <span className="font-serif text-sm font-bold text-stone-950">Pre-Loved Luxury</span>
             </div>
-            <p className="text-xs text-stone-300 leading-relaxed">
+            <p className="text-xs text-stone-600 leading-relaxed">
               Curated high-end fashion at accessible prices.
             </p>
           </div>
 
-          <div className="bg-black/60 backdrop-blur-md p-3.5 rounded-xl border border-stone-800 shadow-xl">
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
-              <Award className="w-4 h-4" />
-              <span className="font-serif text-sm font-bold text-white">Pristine Quality</span>
+          <div className="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-stone-200/90 shadow-md hover:shadow-lg transition-shadow">
+            <div className="flex items-center gap-2 text-[#7c0f1e] mb-1">
+              <Award className="w-4 h-4 text-amber-600" />
+              <span className="font-serif text-sm font-bold text-stone-950">Pristine Quality</span>
             </div>
-            <p className="text-xs text-stone-300 leading-relaxed">
+            <p className="text-xs text-stone-600 leading-relaxed">
               Every garment is hand-inspected and steamed.
             </p>
           </div>
 
-          <div className="bg-black/60 backdrop-blur-md p-3.5 rounded-xl border border-stone-800 shadow-xl">
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
-              <MapPin className="w-4 h-4" />
-              <span className="font-serif text-sm font-bold text-white">Hermanus Heart</span>
+          <div className="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-stone-200/90 shadow-md hover:shadow-lg transition-shadow">
+            <div className="flex items-center gap-2 text-[#7c0f1e] mb-1">
+              <MapPin className="w-4 h-4 text-amber-600" />
+              <span className="font-serif text-sm font-bold text-stone-950">Hermanus Heart</span>
             </div>
-            <p className="text-xs text-stone-300 leading-relaxed">
+            <p className="text-xs text-stone-600 leading-relaxed">
               Conveniently located at 21 Mimosa Street.
             </p>
           </div>
 
-          <div className="bg-black/60 backdrop-blur-md p-3.5 rounded-xl border border-stone-800 shadow-xl">
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
-              <Phone className="w-4 h-4" />
-              <span className="font-serif text-sm font-bold text-white">Personal Styling</span>
+          <div className="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-stone-200/90 shadow-md hover:shadow-lg transition-shadow">
+            <div className="flex items-center gap-2 text-[#7c0f1e] mb-1">
+              <Phone className="w-4 h-4 text-amber-600" />
+              <span className="font-serif text-sm font-bold text-stone-950">Personal Styling</span>
             </div>
-            <p className="text-xs text-stone-300 leading-relaxed">
+            <p className="text-xs text-stone-600 leading-relaxed">
               Warm hospitality & friendly advice from Janine.
             </p>
           </div>
@@ -148,10 +148,10 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
         <div className="mt-8 flex justify-center">
           <button
             onClick={onExploreClick}
-            className="text-stone-300 hover:text-amber-300 transition-colors flex flex-col items-center gap-1 text-xs uppercase tracking-widest drop-shadow-md"
+            className="text-stone-600 hover:text-[#7c0f1e] transition-colors flex flex-col items-center gap-1 text-xs uppercase tracking-widest"
           >
             <span>Scroll To Explore</span>
-            <ArrowDown className="w-4 h-4 animate-bounce text-amber-400" />
+            <ArrowDown className="w-4 h-4 animate-bounce text-[#7c0f1e]" />
           </button>
         </div>
       </div>
