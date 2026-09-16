@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: #ede8e1;
+    background-color: #0b0b0e;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-editorial {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  .font-garamond {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+}
+
+/* Custom luxury glass & gold border highlights */
+.luxury-gold-border {
+  border: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+.luxury-gold-border-hover:hover {
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+}
+
+.luxury-crimson-gradient {
+  background: linear-gradient(135deg, #780d1e 0%, #4a0610 100%);
+}
+
+.luxury-gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa820a 100%);
+}
+
+.gold-text-accent {
+  color: #e5c158;
+}
+
+/* Custom subtle gold shimmer */
+@keyframes goldShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-shimmer {
+  animation: goldShimmer 3s infinite;
+}
+

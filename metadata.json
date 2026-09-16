@@ -1,0 +1,6 @@
+{
+  "name": "Janine's Clothing Hermanus",
+  "description": "High-end ladies fashion boutique in Hermanus, South Africa offering quality pre-loved clothing, shoes, bags, and stylish designer collections.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
