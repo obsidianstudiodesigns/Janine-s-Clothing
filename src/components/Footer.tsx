@@ -1,12 +1,14 @@
 import { MapPin, Phone, Mail, Clock, Heart, Sparkles, MessageCircle, ArrowUp } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
+import { LEGAL_DOCS } from '../data/legal';
 import logoTrans from '../assets/images/logo trans.jpg';
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
+  onOpenLegal: (id: string) => void;
 }
 
-export default function Footer({ onNavigate }: FooterProps) {
+export default function Footer({ onNavigate, onOpenLegal }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -159,8 +161,31 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
         </div>
 
+        {/* Legal & Policies */}
+        <div className="mt-14 pt-8 border-t border-stone-200">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-[#7c0f1e] font-serif mb-3">
+            Legal &amp; Policies
+          </h4>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {LEGAL_DOCS.map((d) => (
+              <button
+                key={d.id}
+                onClick={() => onOpenLegal(d.id)}
+                className="text-xs text-stone-600 hover:text-[#7c0f1e] hover:underline transition-colors"
+              >
+                {d.short}
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] text-stone-500 leading-relaxed mt-3 max-w-3xl">
+            Your privacy matters to us. This website stores no customer database &mdash; your
+            shopping bag stays in your own browser, and your details reach us only when you choose
+            to send them. See our Privacy &amp; POPIA Notice for the full picture.
+          </p>
+        </div>
+
         {/* Bottom Credits */}
-        <div className="mt-14 pt-8 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+        <div className="mt-10 pt-8 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Janine's Clothing Hermanus. All rights reserved.</p>
           <div>
             <span>Website Designed by <strong className="text-stone-800">Obsidian Studio Designs</strong></span>

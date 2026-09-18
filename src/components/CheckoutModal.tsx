@@ -10,6 +10,7 @@ interface CheckoutModalProps {
   lines: CartLine[];
   subtotal: number;
   onSubmit: (customer: CustomerDetails) => void;
+  onOpenLegal: (id: string) => void;
 }
 
 const EMPTY_CUSTOMER: CustomerDetails = {
@@ -49,8 +50,10 @@ export default function CheckoutModal({
   lines,
   subtotal,
   onSubmit,
+  onOpenLegal,
 }: CheckoutModalProps) {
   const [customer, setCustomer] = useState<CustomerDetails>(EMPTY_CUSTOMER);
+  const [consent, setConsent] = useState(false);
 
   // Close on Escape and lock background scroll while open.
   useEffect(() => {
@@ -405,6 +408,54 @@ export default function CheckoutModal({
               reference. No card details are taken on this website.
             </span>
           </div>
+
+          {/* ---- Consent (POPIA s11(1)(a) + acceptance of terms) ---- */}
+          <label
+            htmlFor="co-consent"
+            className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-colors ${
+              consent
+                ? 'bg-emerald-50/70 border-emerald-200'
+                : 'bg-stone-50 border-stone-300 hover:border-stone-400'
+            }`}
+          >
+            <input
+              id="co-consent"
+              type="checkbox"
+              required
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-0.5 w-4 h-4 shrink-0 accent-[#7c0f1e] cursor-pointer"
+            />
+            <span className="text-xs text-stone-700 leading-relaxed">
+              I have read and accept the{' '}
+              <button
+                type="button"
+                onClick={() => onOpenLegal('terms')}
+                className="text-[#7c0f1e] font-semibold underline hover:text-[#911223]"
+              >
+                Terms &amp; Conditions
+              </button>
+              ,{' '}
+              <button
+                type="button"
+                onClick={() => onOpenLegal('returns')}
+                className="text-[#7c0f1e] font-semibold underline hover:text-[#911223]"
+              >
+                Returns Policy
+              </button>{' '}
+              and{' '}
+              <button
+                type="button"
+                onClick={() => onOpenLegal('privacy')}
+                className="text-[#7c0f1e] font-semibold underline hover:text-[#911223]"
+              >
+                Privacy &amp; POPIA Notice
+              </button>
+              , and I consent to my details being used to process this order. I understand these
+              items are <strong>pre-loved and sold in the condition described</strong>, and that my
+              order is confirmed only once Janine has verified availability.
+            </span>
+          </label>
           </div>
 
           {/* Pinned footer — total and submit stay reachable without scrolling */}

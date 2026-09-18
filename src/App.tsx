@@ -11,10 +11,13 @@ import ItemModal from './components/ItemModal';
 import BookingModal from './components/BookingModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import CartDrawer from './components/CartDrawer';
+import LegalModal from './components/LegalModal';
+import CookieNotice from './components/CookieNotice';
 import CheckoutModal from './components/CheckoutModal';
 import InvoiceModal from './components/InvoiceModal';
 import { useCart } from './hooks/useCart';
 import { createOrder } from './utils/order';
+import { findLegalDoc } from './data/legal';
 import { ClothingItem, CustomerDetails, Order } from './types';
 
 export default function App() {
@@ -36,6 +39,33 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
+
+  // Legal documents open on a #legal/<id> hash, so each policy has its own
+  // shareable URL without pulling in a router.
+  const [legalDocId, setLegalDocId] = useState<string | null>(() =>
+    window.location.hash.startsWith('#legal/') ? window.location.hash.slice(7) : null
+  );
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      setLegalDocId(
+        window.location.hash.startsWith('#legal/') ? window.location.hash.slice(7) : null
+      );
+    };
+    window.addEventListener('hashchange', syncFromHash);
+    return () => window.removeEventListener('hashchange', syncFromHash);
+  }, []);
+
+  const openLegal = (id: string) => {
+    window.location.hash = `legal/${id}`;
+    setLegalDocId(id);
+  };
+
+  const closeLegal = () => {
+    // Drop the hash without adding another history entry.
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    setLegalDocId(null);
+  };
 
   useEffect(() => {
     try {
@@ -128,7 +158,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer onNavigate={handleNavigate} />
+      <Footer onNavigate={handleNavigate} onOpenLegal={openLegal} />
 
       {/* Modals & Floating Overlays */}
       <ItemModal
@@ -170,10 +200,15 @@ export default function App() {
         lines={cart.lines}
         subtotal={cart.subtotal}
         onSubmit={handleSubmitOrder}
+        onOpenLegal={openLegal}
       />
 
       {/* Generated invoice + WhatsApp send */}
       <InvoiceModal order={completedOrder} onClose={() => setCompletedOrder(null)} />
+
+      {/* Legal documents & cookie notice */}
+      <LegalModal doc={findLegalDoc(legalDocId)} onSelect={openLegal} onClose={closeLegal} />
+      <CookieNotice onOpenPolicy={openLegal} />
 
       <FloatingWhatsApp />
     </div>
