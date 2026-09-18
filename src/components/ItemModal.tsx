@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Heart, MessageCircle, Phone, Sparkles, CheckCircle2, ShieldCheck, MapPin, Tag } from 'lucide-react';
+import { X, Heart, MessageCircle, Phone, ShieldCheck, MapPin, ShoppingBag, Check } from 'lucide-react';
 import { ClothingItem } from '../types';
 import { STORE_DETAILS } from '../data/clothingData';
 
@@ -8,9 +8,11 @@ interface ItemModalProps {
   onClose: () => void;
   isWishlisted: boolean;
   onToggleWishlist: (id: string) => void;
+  onAddToCart: (item: ClothingItem) => void;
+  isInCart: boolean;
 }
 
-export default function ItemModal({ item, onClose, isWishlisted, onToggleWishlist }: ItemModalProps) {
+export default function ItemModal({ item, onClose, isWishlisted, onToggleWishlist, onAddToCart, isInCart }: ItemModalProps) {
   if (!item) return null;
 
   const [activeImage, setActiveImage] = useState<string>(item.image);
@@ -146,6 +148,27 @@ export default function ItemModal({ item, onClose, isWishlisted, onToggleWishlis
 
           {/* Action Buttons */}
           <div className="space-y-2.5 pt-2">
+            <button
+              onClick={() => onAddToCart(item)}
+              className={`w-full py-3.5 px-4 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-md flex items-center justify-center gap-2 ${
+                isInCart
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100'
+                  : 'bg-[#7c0f1e] text-white hover:bg-[#911223]'
+              }`}
+            >
+              {isInCart ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>In Your Bag &mdash; Add Another</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Add to Bag</span>
+                </>
+              )}
+            </button>
+
             <a
               href={`https://wa.me/${STORE_DETAILS.whatsappNumber}?text=${whatsappMessage}`}
               target="_blank"

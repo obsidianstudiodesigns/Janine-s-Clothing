@@ -24,3 +24,32 @@ export interface Testimonial {
   comment: string;
   itemPurchased?: string;
 }
+
+export interface CartLine {
+  item: ClothingItem;
+  quantity: number;
+}
+
+export interface CustomerDetails {
+  firstName: string;
+  surname: string;
+  email: string;
+  phone: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  province: string;
+  postalCode: string;
+  delivery: 'collect' | 'courier';
+  notes: string;
+}
+
+export interface Order {
+  invoiceNumber: string;
+  issuedAt: string;
+  customer: CustomerDetails;
+  lines: CartLine[];
+  subtotalZAR: number;
+  deliveryZAR: number;
+  totalZAR: number;
+}

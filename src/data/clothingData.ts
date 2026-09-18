@@ -12,7 +12,7 @@ export const STORE_DETAILS = {
     { display: "078 702 6325", tel: "+27787026325", label: "Mobile / WhatsApp", isWhatsApp: true },
   ],
   whatsappNumber: "27787026325",
-  email: "info@janinesclothing.co.za",
+  email: "janinevandeventer107@gmail.com",
   tagline: "Good quality pre-loved clothing at affordable prices",
   slogan: "Janine's Clothing has something for everyone!",
   hours: [
@@ -21,6 +21,16 @@ export const STORE_DETAILS = {
     { days: "Sunday & Public Holidays", times: "Closed / By Appointment" },
   ],
 };
+
+export const BANKING_DETAILS = {
+  accountHolder: "Janine's Clothing",
+  bank: "ABSA Bank",
+  accountType: "Cheque Account",
+  accountNumber: "4051 4161 15",
+  branchCode: "632005",
+};
+
+export const DELIVERY_FEE_ZAR = 120;
 
 export const CLOTHING_ITEMS: ClothingItem[] = [
   {

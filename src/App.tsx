@@ -10,7 +10,12 @@ import Footer from './components/Footer';
 import ItemModal from './components/ItemModal';
 import BookingModal from './components/BookingModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
-import { ClothingItem } from './types';
+import CartDrawer from './components/CartDrawer';
+import CheckoutModal from './components/CheckoutModal';
+import InvoiceModal from './components/InvoiceModal';
+import { useCart } from './hooks/useCart';
+import { createOrder } from './utils/order';
+import { ClothingItem, CustomerDetails, Order } from './types';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'clothing' | 'shoes' | 'bags' | 'accessories'>('all');
@@ -25,6 +30,12 @@ export default function App() {
     }
   });
   const [activeSection, setActiveSection] = useState('hero');
+
+  // Shopping bag → checkout → invoice flow
+  const cart = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
 
   useEffect(() => {
     try {
@@ -53,6 +64,26 @@ export default function App() {
     handleNavigate('collections');
   };
 
+  /** Adding from a card or the item modal always pops the bag open for feedback. */
+  const handleAddToCart = (item: ClothingItem) => {
+    cart.addItem(item);
+    setActiveItem(null);
+    setIsCartOpen(true);
+  };
+
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
+  /** Checkout submitted → build the invoice, then empty the bag. */
+  const handleSubmitOrder = (customer: CustomerDetails) => {
+    const order = createOrder(customer, cart.lines);
+    setCompletedOrder(order);
+    setIsCheckoutOpen(false);
+    cart.clearCart();
+  };
+
   return (
     <div className="min-h-screen bg-[#faf8f5] text-[#1c1917] flex flex-col selection:bg-[#850e1f] selection:text-white">
       {/* Top Fixed Header */}
@@ -60,6 +91,8 @@ export default function App() {
         onNavigate={handleNavigate}
         onOpenBooking={() => setIsBookingOpen(true)}
         activeSection={activeSection}
+        cartCount={cart.itemCount}
+        onOpenCart={() => setIsCartOpen(true)}
       />
 
       {/* Main Landing & Sections */}
@@ -80,6 +113,8 @@ export default function App() {
           onSelectItem={setActiveItem}
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
+          onAddToCart={handleAddToCart}
+          isInCart={cart.isInCart}
         />
 
         {/* About Janine's Clothing & Hermanus Story */}
@@ -101,6 +136,8 @@ export default function App() {
         onClose={() => setActiveItem(null)}
         isWishlisted={activeItem ? wishlist.includes(activeItem.id) : false}
         onToggleWishlist={handleToggleWishlist}
+        onAddToCart={handleAddToCart}
+        isInCart={activeItem ? cart.isInCart(activeItem.id) : false}
       />
 
       <BookingModal
@@ -108,8 +145,37 @@ export default function App() {
         onClose={() => setIsBookingOpen(false)}
       />
 
+      {/* Shopping bag */}
+      <CartDrawer
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        lines={cart.lines}
+        subtotal={cart.subtotal}
+        onSetQuantity={cart.setQuantity}
+        onRemove={cart.removeItem}
+        onCheckout={handleCheckout}
+        onContinueShopping={() => {
+          setIsCartOpen(false);
+          handleNavigate('collections');
+        }}
+      />
+
+      {/* Checkout details form */}
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => {
+          setIsCheckoutOpen(false);
+          setIsCartOpen(true);
+        }}
+        lines={cart.lines}
+        subtotal={cart.subtotal}
+        onSubmit={handleSubmitOrder}
+      />
+
+      {/* Generated invoice + WhatsApp send */}
+      <InvoiceModal order={completedOrder} onClose={() => setCompletedOrder(null)} />
+
       <FloatingWhatsApp />
     </div>
   );
 }
-

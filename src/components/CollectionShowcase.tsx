@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Sparkles, Heart, Eye, MessageCircle, Search, SlidersHorizontal, ArrowUpDown, ShieldCheck } from 'lucide-react';
+import { Sparkles, Heart, Eye, MessageCircle, Search, ArrowUpDown, ShieldCheck, ShoppingBag, Check } from 'lucide-react';
 import { ClothingItem } from '../types';
 import { CLOTHING_ITEMS, STORE_DETAILS } from '../data/clothingData';
 
@@ -9,6 +9,8 @@ interface CollectionShowcaseProps {
   onSelectItem: (item: ClothingItem) => void;
   wishlist: string[];
   onToggleWishlist: (id: string) => void;
+  onAddToCart: (item: ClothingItem) => void;
+  isInCart: (id: string) => boolean;
 }
 
 export default function CollectionShowcase({
@@ -17,6 +19,8 @@ export default function CollectionShowcase({
   onSelectItem,
   wishlist,
   onToggleWishlist,
+  onAddToCart,
+  isInCart,
 }: CollectionShowcaseProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc'>('featured');
@@ -143,6 +147,7 @@ export default function CollectionShowcase({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-8">
             {filteredItems.map((item) => {
               const isWishlisted = wishlist.includes(item.id);
+              const inCart = isInCart(item.id);
               const isHovered = hoveredItemId === item.id;
               const displayImg = isHovered && item.secondaryImage ? item.secondaryImage : item.image;
 
@@ -244,31 +249,59 @@ export default function CollectionShowcase({
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
-                      <div>
-                        <div className="font-serif text-xl font-bold text-[#7c0f1e] leading-none">
-                          R {item.priceZAR.toLocaleString()}
-                        </div>
-                        {item.originalPriceZAR && (
-                          <div className="text-[10px] text-stone-400 line-through mt-0.5">
-                            R {item.originalPriceZAR.toLocaleString()}
+                    <div className="mt-4 pt-3 border-t border-stone-100 space-y-3">
+                      <div className="flex items-end justify-between gap-2">
+                        <div>
+                          <div className="font-serif text-xl font-bold text-[#7c0f1e] leading-none">
+                            R {item.priceZAR.toLocaleString()}
                           </div>
-                        )}
+                          {item.originalPriceZAR && (
+                            <div className="text-[10px] text-stone-400 line-through mt-0.5">
+                              R {item.originalPriceZAR.toLocaleString()}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* WhatsApp Enquire Button */}
+                        <a
+                          href={`https://wa.me/${STORE_DETAILS.whatsappNumber}?text=Hi%20Janine!%20I'm%20interested%20in%20"${encodeURIComponent(
+                            item.name
+                          )}"%20(R${item.priceZAR})%20from%20your%20website.%20Is%20it%20available?`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="p-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-xs shrink-0"
+                          title="Enquire on WhatsApp"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                        </a>
                       </div>
 
-                      {/* WhatsApp Enquire Button */}
-                      <a
-                        href={`https://wa.me/${STORE_DETAILS.whatsappNumber}?text=Hi%20Janine!%20I'm%20interested%20in%20"${encodeURIComponent(
-                          item.name
-                        )}"%20(R${item.priceZAR})%20from%20your%20website.%20Is%20it%20available?`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-xs"
-                        title="Enquire on WhatsApp"
+                      {/* Add to Bag */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToCart(item);
+                        }}
+                        className={`w-full py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-1.5 ${
+                          inCart
+                            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100'
+                            : 'bg-[#7c0f1e] text-white hover:bg-[#911223]'
+                        }`}
+                        aria-label={`Add ${item.name} to shopping bag`}
                       >
-                        <MessageCircle className="w-4 h-4" />
-                      </a>
+                        {inCart ? (
+                          <>
+                            <Check className="w-3.5 h-3.5" />
+                            <span>In Your Bag</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingBag className="w-3.5 h-3.5" />
+                            <span>Add to Bag</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                   </div>
                 </div>

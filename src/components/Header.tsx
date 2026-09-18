@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Phone, MessageCircle, Menu, X, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, Clock, ShoppingBag } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
 import logoTrans from '../assets/images/logo trans.jpg';
 
@@ -7,9 +7,11 @@ interface HeaderProps {
   onNavigate: (sectionId: string) => void;
   onOpenBooking: () => void;
   activeSection: string;
+  cartCount: number;
+  onOpenCart: () => void;
 }
 
-export default function Header({ onNavigate, onOpenBooking, activeSection }: HeaderProps) {
+export default function Header({ onNavigate, onOpenBooking, activeSection, cartCount, onOpenCart }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -106,6 +108,21 @@ export default function Header({ onNavigate, onOpenBooking, activeSection }: Hea
               <MessageCircle className="w-4 h-4" />
             </a>
           </div>
+
+          {/* Shopping Bag — visible at every breakpoint */}
+          <button
+            onClick={onOpenCart}
+            className="relative p-2.5 ml-auto lg:ml-0 mr-1 md:mr-2 rounded-full text-stone-700 hover:text-[#7c0f1e] hover:bg-stone-100 transition-colors focus:outline-none"
+            aria-label={`Open shopping bag (${cartCount} ${cartCount === 1 ? 'item' : 'items'})`}
+            title="Shopping Bag"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            {cartCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-[#7c0f1e] text-white text-[10px] font-bold tabular-nums border-2 border-white shadow-sm">
+                {cartCount > 99 ? '99+' : cartCount}
+              </span>
+            )}
+          </button>
 
           {/* Mobile Menu Toggle */}
           <button

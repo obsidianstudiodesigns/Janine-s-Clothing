@@ -50,3 +50,57 @@
   animation: goldShimmer 3s infinite;
 }
 
+
+/* ------------------------------------------------------------------
+   Invoice printing — "Save / Print PDF" on the invoice modal.
+   Everything except the invoice itself is hidden, so the browser's
+   print dialog produces a clean single-document PDF.
+   ------------------------------------------------------------------ */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  body {
+    background: #fff !important;
+    overflow: visible !important;
+  }
+
+  /* Hide everything, then re-show only the invoice subtree. Uses
+     visibility (not display) so the invoice keeps its layout no matter
+     how deeply the modal is nested inside the app tree. */
+  body * {
+    visibility: hidden;
+  }
+
+  #invoice-printable,
+  #invoice-printable * {
+    visibility: visible;
+  }
+
+  #invoice-printable {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Keep the crimson letterhead rule and banking block in the PDF. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Never split a line item or the banking panel across pages. */
+  table tr,
+  #invoice-printable .rounded-xl {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
