@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   X,
   CheckCircle2,
@@ -10,10 +10,12 @@ import {
   Mail,
   Truck,
   Store,
+  Loader2,
 } from 'lucide-react';
 import { Order } from '../types';
 import { STORE_DETAILS, BANKING_DETAILS } from '../data/clothingData';
-import { formatZAR, formatInvoiceDate, customerFullName, whatsappOrderLink } from '../utils/order';
+import { formatZAR, formatInvoiceDate, customerFullName } from '../utils/order';
+import { sendInvoiceToStore, downloadInvoicePdf, SendOutcome } from '../utils/invoicePdf';
 import logoTrans from '../assets/images/logo trans.jpg';
 
 interface InvoiceModalProps {
@@ -22,6 +24,31 @@ interface InvoiceModalProps {
 }
 
 export default function InvoiceModal({ order, onClose }: InvoiceModalProps) {
+  const [isSending, setIsSending] = useState(false);
+  const [isSavingPdf, setIsSavingPdf] = useState(false);
+  const [outcome, setOutcome] = useState<SendOutcome | null>(null);
+
+  const handleSend = async () => {
+    if (!order || isSending) return;
+    setIsSending(true);
+    setOutcome(null);
+    try {
+      setOutcome(await sendInvoiceToStore(order));
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const handleSavePdf = async () => {
+    if (!order || isSavingPdf) return;
+    setIsSavingPdf(true);
+    try {
+      await downloadInvoicePdf(order);
+    } finally {
+      setIsSavingPdf(false);
+    }
+  };
+
   // Escape to close; keep the page behind from scrolling.
   useEffect(() => {
     if (!order) return;
@@ -342,36 +369,56 @@ export default function InvoiceModal({ order, onClose }: InvoiceModalProps) {
         {/* Actions — pinned, screen only */}
         <div className="shrink-0 bg-white border-t border-stone-200 px-5 sm:px-6 py-3 print:hidden">
           <div className="flex flex-col sm:flex-row items-stretch gap-2">
-            <a
-              href={whatsappOrderLink(order)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 transition-all shadow-md flex items-center justify-center gap-2"
+            <button
+              onClick={handleSend}
+              disabled={isSending}
+              className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-600/70 disabled:cursor-wait transition-all shadow-md flex items-center justify-center gap-2"
             >
-              <MessageCircle className="w-4 h-4 shrink-0" />
-              <span>Send Order to Janine on WhatsApp</span>
-            </a>
+              {isSending ? (
+                <>
+                  <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
+                  <span>Preparing Invoice&hellip;</span>
+                </>
+              ) : (
+                <>
+                  <MessageCircle className="w-4 h-4 shrink-0" />
+                  <span>Send Order to Janine on WhatsApp</span>
+                </>
+              )}
+            </button>
 
-            <div className="flex gap-2">
-              <button
-                onClick={() => window.print()}
-                className="flex-1 sm:flex-none py-3 px-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors flex items-center justify-center gap-1.5"
-              >
+            <button
+              onClick={handleSavePdf}
+              disabled={isSavingPdf}
+              className="sm:w-44 py-3 px-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 disabled:cursor-wait border border-stone-200 transition-colors flex items-center justify-center gap-1.5"
+            >
+              {isSavingPdf ? (
+                <Loader2 className="w-3.5 h-3.5 text-[#7c0f1e] shrink-0 animate-spin" />
+              ) : (
                 <Printer className="w-3.5 h-3.5 text-[#7c0f1e] shrink-0" />
-                <span>Save PDF</span>
-              </button>
-
-              <button
-                onClick={onClose}
-                className="flex-1 sm:flex-none py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors"
-              >
-                Done
-              </button>
-            </div>
+              )}
+              <span>Download PDF</span>
+            </button>
           </div>
 
-          <p className="text-[11px] text-stone-500 text-center leading-snug mt-2">
-            WhatsApp opens with your full order already typed in &mdash; just press send.
+          <p className="text-[11px] text-center leading-snug mt-2 text-stone-500">
+            {outcome === 'downloaded' ? (
+              <span className="text-amber-800 font-semibold">
+                Invoice PDF saved to your downloads &mdash; attach it in the WhatsApp chat that just
+                opened.
+              </span>
+            ) : outcome === 'shared' ? (
+              <span className="text-emerald-700 font-semibold">Invoice sent. Thank you!</span>
+            ) : outcome === 'text-only' ? (
+              <span className="text-amber-800 font-semibold">
+                Could not build the PDF, so WhatsApp opened with your order as text instead.
+              </span>
+            ) : (
+              <>
+                On a phone the invoice PDF is attached for you; on a computer it downloads so you
+                can attach it in one tap.
+              </>
+            )}
           </p>
         </div>
       </div>
