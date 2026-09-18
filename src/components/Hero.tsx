@@ -1,4 +1,4 @@
-import { Sparkles, MapPin, Phone, ArrowDown, ChevronRight, MessageCircle, Award } from 'lucide-react';
+import { Sparkles, MapPin, Phone, ChevronRight, Award } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
 import logoTrans from '../assets/images/logo trans.jpg';
 import landingPageImg from '../assets/images/landing page.jpg';
@@ -82,15 +82,6 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
             <span>Visit 21 Mimosa Street</span>
           </button>
 
-          <a
-            href={`https://wa.me/${STORE_DETAILS.whatsappNumber}?text=Hi%20Janine,%20I'm%20viewing%20your%20website%20and%20would%20like%20to%20know%20what's%20in%20store%20today.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto px-6 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>WhatsApp Us</span>
-          </a>
         </div>
 
         {/* Trust Badges / Value Pillars */}
@@ -136,16 +127,6 @@ export default function Hero({ onExploreClick, onVisitClick }: HeroProps) {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={onExploreClick}
-            className="text-stone-600 hover:text-[#7c0f1e] transition-colors flex flex-col items-center gap-1 text-xs uppercase tracking-widest"
-          >
-            <span>Scroll To Explore</span>
-            <ArrowDown className="w-4 h-4 animate-bounce text-[#7c0f1e]" />
-          </button>
-        </div>
       </div>
     </section>
   );

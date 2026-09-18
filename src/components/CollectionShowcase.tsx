@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Sparkles, Heart, Eye, MessageCircle, Search, ArrowUpDown, ShieldCheck, ShoppingBag, Check } from 'lucide-react';
+import { Heart, Eye, MessageCircle, Search, ArrowUpDown, ShieldCheck, ShoppingBag, Check } from 'lucide-react';
 import { ClothingItem } from '../types';
 import { CLOTHING_ITEMS, STORE_DETAILS } from '../data/clothingData';
 
@@ -63,15 +63,11 @@ export default function CollectionShowcase({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100/80 border border-amber-300/80 text-amber-900 text-xs uppercase tracking-widest font-bold mb-3 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-700" />
-              <span>Interactive Gallery & Stock</span>
-            </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-stone-950 tracking-tight">
               Latest Clothing Collections
             </h2>
             <p className="text-sm sm:text-base text-stone-600 mt-2 max-w-xl">
-              Hover over garments to discover exquisite details, sizes, and genuine pre-loved pricing. Each treasure is one-of-a-kind.
+Every piece is one of a kind. Tap any item for sizing, condition and full details.
             </p>
           </div>
 
@@ -171,15 +167,6 @@ export default function CollectionShowcase({
                     {/* Gradient shade */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                    {/* Tag / Badge */}
-                    {item.tag && (
-                      <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#7c0f1e] text-white border border-amber-300/40 backdrop-blur-md shadow-sm">
-                          {item.tag}
-                        </span>
-                      </div>
-                    )}
-
                     {/* Condition Pill */}
                     <div className="absolute bottom-3 left-3">
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/90 text-emerald-800 border border-emerald-200 backdrop-blur-md shadow-xs">
@@ -223,7 +210,7 @@ export default function CollectionShowcase({
                     <div className="absolute inset-x-0 bottom-12 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 px-4 pointer-events-none">
                       <span className="px-4 py-2 rounded-full bg-white/95 border border-stone-300 text-stone-900 text-xs font-semibold uppercase tracking-wider backdrop-blur-md shadow-lg flex items-center gap-1.5">
                         <Eye className="w-3.5 h-3.5 text-[#7c0f1e]" />
-                        <span>Quick View & Craft Specs</span>
+                        <span>Quick View</span>
                       </span>
                     </div>
                   </div>

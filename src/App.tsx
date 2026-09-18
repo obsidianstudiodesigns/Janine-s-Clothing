@@ -133,7 +133,7 @@ export default function App() {
           onVisitClick={() => handleNavigate('visit')}
         />
 
-        {/* 4 Pillars from Flyer 3: Clothing, Shoes, Bags, And Much More */}
+        {/* Shop by category */}
         <CategoryHighlights onSelectCategory={handleSelectCategoryHighlight} />
 
         {/* Interactive Collections Showcase with Hover Effects */}

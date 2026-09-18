@@ -80,9 +80,9 @@ export const CLOTHING_ITEMS: ClothingItem[] = [
     material: '100% Habotai Silk',
     image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80',
     secondaryImage: 'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800&q=80',
-    description: 'Inspired by classic Parisian glamour directly reflected on our store flyer. Pair with tailored shorts or pencil skirt for effortless day-to-evening style.',
+    description: 'Inspired by classic Parisian glamour. Pair with tailored shorts or pencil skirt for effortless day-to-evening style.',
     featured: true,
-    tag: 'Flyer Featured',
+    tag: 'Parisian Classic',
   },
   {
     id: 'jc-04',

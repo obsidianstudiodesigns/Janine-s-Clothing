@@ -1,4 +1,4 @@
-import { Star, Quote, Sparkles } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import { TESTIMONIALS } from '../data/clothingData';
 
 export default function Testimonials() {
@@ -6,10 +6,6 @@ export default function Testimonials() {
     <section className="py-20 bg-stone-50 border-t border-stone-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-300/80 text-amber-900 text-xs uppercase tracking-widest font-bold mb-3 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#7c0f1e]" />
-            <span>Loved by Hermanus Ladies</span>
-          </div>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-stone-950 tracking-tight">
             Client Words & Experiences
           </h2>

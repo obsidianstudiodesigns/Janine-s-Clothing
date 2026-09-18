@@ -1,4 +1,4 @@
-import { Heart, Sparkles, Check, Recycle, MapPin, Award } from 'lucide-react';
+import { Heart, Check, Recycle, Award, Sparkles } from 'lucide-react';
 import { STORE_DETAILS } from '../data/clothingData';
 import logoTrans from '../assets/images/logo trans.jpg';
 
@@ -68,11 +68,6 @@ export default function AboutJanine() {
 
           {/* Editorial Content */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-300/80 text-amber-900 text-xs uppercase tracking-widest font-bold shadow-2xs">
-              <MapPin className="w-3.5 h-3.5 text-[#7c0f1e]" />
-              <span>Hermanus, Western Cape</span>
-            </div>
-
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-stone-950 leading-tight">
               Stylish Ladies Fashion with a Passion for Quality & Value
             </h2>
@@ -82,7 +77,7 @@ export default function AboutJanine() {
                 Nestled in beautiful <strong>Hermanus</strong>, <strong>Janine's Clothing</strong> was founded with a singular belief: every woman deserves to look and feel radiant in high-end fashion without an exorbitant price tag.
               </p>
               <p>
-                As expressed on our boutique flyer, our ethos is simple yet profound: <span className="text-[#7c0f1e] font-serif italic font-semibold">"Good quality pre-loved clothing at affordable prices"</span> and <span className="text-[#7c0f1e] font-serif italic font-semibold">"Janine's Clothing has something for everyone!"</span>
+                Our ethos is simple: <span className="text-[#7c0f1e] font-serif italic font-semibold">"Good quality pre-loved clothing at affordable prices"</span> and <span className="text-[#7c0f1e] font-serif italic font-semibold">"Janine's Clothing has something for everyone!"</span>
               </p>
               <p>
                 Whether you are attending a glamorous wedding in the Hemel-en-Aarde valley, a formal evening gala, or searching for chic casual blouses, designer handbags, or comfortable luxury shoes, our curated racks offer one-of-a-kind wardrobe treasures.
