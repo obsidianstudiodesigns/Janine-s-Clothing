@@ -85,24 +85,20 @@ export default function CheckoutModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-start sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto print:hidden">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 print:hidden">
       <div
-        className="relative w-full max-w-3xl bg-white sm:rounded-2xl shadow-2xl my-0 sm:my-8 border border-stone-200"
+        className="relative w-full max-w-3xl h-full sm:h-auto sm:max-h-[min(92vh,900px)] bg-white sm:rounded-2xl shadow-2xl border border-stone-200 flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="sticky top-0 z-10 flex items-start justify-between gap-4 px-6 py-5 bg-white border-b border-stone-200 sm:rounded-t-2xl">
+        {/* Header — fixed, never scrolls */}
+        <div className="shrink-0 flex items-start justify-between gap-4 px-5 sm:px-6 py-4 bg-white border-b border-stone-200">
           <div>
-            <span className="text-xs uppercase tracking-widest text-[#7c0f1e] font-bold block mb-1">
+            <span className="text-[11px] uppercase tracking-widest text-[#7c0f1e] font-bold block">
               Secure Checkout
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-950 leading-tight">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-950 leading-tight">
               Your Details &amp; Order
             </h2>
-            <p className="text-xs text-stone-600 mt-1">
-              Fill in your details below. We will generate your invoice with Janine&rsquo;s banking
-              details straight away.
-            </p>
           </div>
 
           <button
@@ -114,7 +110,9 @@ export default function CheckoutModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
+          {/* Scrolling body */}
+          <div className="flex-1 min-h-0 overflow-y-auto px-5 sm:px-6 py-5 space-y-5">
           {/* ---- Personal details ---- */}
           <section className="space-y-4">
             <div className="flex items-center gap-2 pb-2 border-b border-stone-200">
@@ -407,24 +405,38 @@ export default function CheckoutModal({
               reference. No card details are taken on this website.
             </span>
           </div>
+          </div>
 
-          {/* ---- Submit ---- */}
-          <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
-            <button
-              type="submit"
-              className="flex-1 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-white bg-[#7c0f1e] hover:bg-[#911223] transition-all shadow-md flex items-center justify-center gap-2"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Submit &amp; Generate Invoice</span>
-            </button>
+          {/* Pinned footer — total and submit stay reachable without scrolling */}
+          <div className="shrink-0 border-t border-stone-200 bg-white px-5 sm:px-6 py-3.5">
+            <div className="flex items-center justify-between gap-4">
+              <div className="shrink-0">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                  Total to pay
+                </span>
+                <span className="font-serif text-2xl font-bold text-[#7c0f1e] tabular-nums leading-none">
+                  {formatZAR(total)}
+                </span>
+              </div>
 
-            <button
-              type="button"
-              onClick={onClose}
-              className="sm:w-40 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-stone-700 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors"
-            >
-              Back to Bag
-            </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="hidden sm:block px-4 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider text-stone-700 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors"
+                >
+                  Back to Bag
+                </button>
+
+                <button
+                  type="submit"
+                  className="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#7c0f1e] hover:bg-[#911223] transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                  <FileText className="w-4 h-4 shrink-0" />
+                  <span>Generate Invoice</span>
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>

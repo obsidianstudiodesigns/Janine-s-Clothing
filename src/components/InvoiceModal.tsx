@@ -50,10 +50,10 @@ export default function InvoiceModal({ order, onClose }: InvoiceModalProps) {
   );
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-start justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200 print:static print:bg-transparent print:p-0 print:block print:overflow-visible">
-      <div className="relative w-full max-w-3xl my-0 sm:my-8 print:my-0 print:max-w-none">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200 print:static print:bg-transparent print:p-0 print:block print:overflow-visible">
+      <div className="relative w-full max-w-3xl h-full sm:h-auto sm:max-h-[min(92vh,900px)] flex flex-col overflow-hidden sm:rounded-2xl print:h-auto print:max-h-none print:block print:overflow-visible print:max-w-none print:rounded-none">
         {/* Confirmation banner — screen only */}
-        <div className="bg-emerald-600 text-white px-6 py-4 sm:rounded-t-2xl flex items-center gap-3 print:hidden">
+        <div className="shrink-0 bg-emerald-600 text-white px-6 py-4 flex items-center gap-3 print:hidden">
           <CheckCircle2 className="w-6 h-6 shrink-0" />
           <div className="flex-1">
             <h2 className="font-serif text-lg font-bold leading-tight">Order Received!</h2>
@@ -71,7 +71,8 @@ export default function InvoiceModal({ order, onClose }: InvoiceModalProps) {
           </button>
         </div>
 
-        {/* ============ THE INVOICE ============ */}
+        {/* ============ THE INVOICE (scrolls on its own) ============ */}
+        <div className="flex-1 min-h-0 overflow-y-auto bg-white print:flex-none print:min-h-0 print:overflow-visible print:block">
         <div
           id="invoice-printable"
           className="bg-white shadow-2xl print:shadow-none border-x border-stone-200 print:border-0"
@@ -336,40 +337,42 @@ export default function InvoiceModal({ order, onClose }: InvoiceModalProps) {
             </p>
           </div>
         </div>
+        </div>
 
-        {/* Actions — screen only */}
-        <div className="bg-white border-x border-b border-stone-200 sm:rounded-b-2xl px-6 py-5 space-y-2.5 print:hidden">
-          <a
-            href={whatsappOrderLink(order)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full py-3.5 px-4 rounded-xl text-sm font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 transition-all shadow-md flex items-center justify-center gap-2"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>Send Order to Janine on WhatsApp</span>
-          </a>
-
-          <p className="text-[11px] text-stone-500 text-center leading-relaxed">
-            This opens WhatsApp with your full order and details already typed in &mdash; just press
-            send.
-          </p>
-
-          <div className="grid grid-cols-2 gap-2.5 pt-1">
-            <button
-              onClick={() => window.print()}
-              className="py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors flex items-center justify-center gap-1.5"
+        {/* Actions — pinned, screen only */}
+        <div className="shrink-0 bg-white border-t border-stone-200 px-5 sm:px-6 py-3 print:hidden">
+          <div className="flex flex-col sm:flex-row items-stretch gap-2">
+            <a
+              href={whatsappOrderLink(order)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 transition-all shadow-md flex items-center justify-center gap-2"
             >
-              <Printer className="w-3.5 h-3.5 text-[#7c0f1e]" />
-              <span>Save / Print PDF</span>
-            </button>
+              <MessageCircle className="w-4 h-4 shrink-0" />
+              <span>Send Order to Janine on WhatsApp</span>
+            </a>
 
-            <button
-              onClick={onClose}
-              className="py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors"
-            >
-              Done
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => window.print()}
+                className="flex-1 sm:flex-none py-3 px-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <Printer className="w-3.5 h-3.5 text-[#7c0f1e] shrink-0" />
+                <span>Save PDF</span>
+              </button>
+
+              <button
+                onClick={onClose}
+                className="flex-1 sm:flex-none py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-800 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors"
+              >
+                Done
+              </button>
+            </div>
           </div>
+
+          <p className="text-[11px] text-stone-500 text-center leading-snug mt-2">
+            WhatsApp opens with your full order already typed in &mdash; just press send.
+          </p>
         </div>
       </div>
     </div>
