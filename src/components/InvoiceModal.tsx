@@ -15,7 +15,7 @@ import {
 import { Order } from '../types';
 import { STORE_DETAILS, BANKING_DETAILS } from '../data/clothingData';
 import { formatZAR, formatInvoiceDate, customerFullName } from '../utils/order';
-import { sendInvoiceToStore, downloadInvoicePdf, SendOutcome } from '../utils/invoicePdf';
+import { sendInvoiceToStore, downloadInvoicePdf, storeChatLink, SendOutcome } from '../utils/invoicePdf';
 import logoTrans from '../assets/images/logo trans.jpg';
 
 interface InvoiceModalProps {
@@ -402,21 +402,32 @@ export default function InvoiceModal({ order, onClose }: InvoiceModalProps) {
           </div>
 
           <p className="text-[11px] text-center leading-snug mt-2 text-stone-500">
-            {outcome === 'downloaded' ? (
-              <span className="text-amber-800 font-semibold">
-                Invoice PDF saved to your downloads &mdash; attach it in the WhatsApp chat that just
-                opened.
+            {outcome === 'opened' ? (
+              <span className="text-emerald-700 font-semibold">
+                Janine&rsquo;s chat is open with your order &mdash; just press send. The invoice PDF
+                was saved to your downloads if you would like to attach it too.
               </span>
-            ) : outcome === 'shared' ? (
-              <span className="text-emerald-700 font-semibold">Invoice sent. Thank you!</span>
-            ) : outcome === 'text-only' ? (
+            ) : outcome === 'opened-without-pdf' ? (
+              <span className="text-emerald-700 font-semibold">
+                Janine&rsquo;s chat is open with your full order &mdash; just press send.
+              </span>
+            ) : outcome === 'popup-blocked' ? (
               <span className="text-amber-800 font-semibold">
-                Could not build the PDF, so WhatsApp opened with your order as text instead.
+                Your browser blocked the pop-up.{' '}
+                <a
+                  href={storeChatLink(order)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline font-bold"
+                >
+                  Tap here to open Janine&rsquo;s WhatsApp
+                </a>
+                .
               </span>
             ) : (
               <>
-                On a phone the invoice PDF is attached for you; on a computer it downloads so you
-                can attach it in one tap.
+                Opens Janine&rsquo;s WhatsApp ({STORE_DETAILS.phones[1].display}) with your whole
+                order already typed in &mdash; just press send.
               </>
             )}
           </p>

@@ -1,7 +1,7 @@
 import type { jsPDF } from 'jspdf';
 import { Order } from '../types';
 import { STORE_DETAILS, BANKING_DETAILS } from '../data/clothingData';
-import { formatZAR, formatInvoiceDate, customerFullName, buildWhatsAppMessage, whatsappOrderLink } from './order';
+import { formatZAR, formatInvoiceDate, customerFullName, whatsappOrderLink } from './order';
 
 /**
  * Builds the invoice as a real PDF by drawing it, rather than rasterising the
@@ -298,42 +298,37 @@ export async function downloadInvoicePdf(order: Order): Promise<void> {
   triggerDownload(doc.output('blob'), invoiceFileName(order));
 }
 
-export type SendOutcome = 'shared' | 'downloaded' | 'cancelled' | 'text-only';
+export type SendOutcome = 'opened' | 'opened-without-pdf' | 'popup-blocked';
 
 /**
- * A wa.me link can only carry text — WhatsApp gives no way to pre-attach a file
- * to one. So where the browser can share files (phones, where most customers
- * are) we hand WhatsApp the PDF through the native share sheet. Everywhere else
- * we save the PDF and open the chat with the order text, leaving one attach.
+ * Sends the order to the shop's WhatsApp.
+ *
+ * This deliberately does NOT use the Web Share API. Sharing a file opens the
+ * device's "share with which app?" sheet, which makes the customer find
+ * WhatsApp and then pick a chat — they can easily send the order to the wrong
+ * person. Going straight to the shop's wa.me link always lands in Janine's
+ * chat with the order already typed in.
+ *
+ * A wa.me link cannot carry an attachment, so the PDF is downloaded alongside
+ * for the customer to attach; the order text alone is already complete.
  */
 export async function sendInvoiceToStore(order: Order): Promise<SendOutcome> {
-  const message = buildWhatsAppMessage(order);
+  // Open Janine's chat first and synchronously — after an await, the browser no
+  // longer treats this as part of the click and the popup gets blocked.
+  const chat = window.open(whatsappOrderLink(order), '_blank', 'noopener');
+  const blocked = !chat;
 
-  let blob: Blob;
   try {
-    blob = (await buildInvoicePdf(order)).output('blob');
+    const blob = (await buildInvoicePdf(order)).output('blob');
+    triggerDownload(blob, invoiceFileName(order));
   } catch {
-    window.open(whatsappOrderLink(order), '_blank', 'noopener');
-    return 'text-only';
+    return blocked ? 'popup-blocked' : 'opened-without-pdf';
   }
 
-  const file = new File([blob], invoiceFileName(order), { type: 'application/pdf' });
+  return blocked ? 'popup-blocked' : 'opened';
+}
 
-  if (
-    typeof navigator !== 'undefined' &&
-    typeof navigator.share === 'function' &&
-    navigator.canShare?.({ files: [file] })
-  ) {
-    try {
-      await navigator.share({ files: [file], text: message });
-      return 'shared';
-    } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') return 'cancelled';
-      // Anything else falls through to the download route.
-    }
-  }
-
-  triggerDownload(blob, invoiceFileName(order));
-  window.open(whatsappOrderLink(order), '_blank', 'noopener');
-  return 'downloaded';
+/** Direct link to the shop's chat, for rendering as a real anchor fallback. */
+export function storeChatLink(order: Order): string {
+  return whatsappOrderLink(order);
 }
